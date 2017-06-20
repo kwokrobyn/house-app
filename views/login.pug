@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1 Welcome Back!
+  h4 Log In 
+  form(method='post')
+    .form-group
+      label Username
+      input.form-control(type='text', placeholder='Username', name='username')
+    .form-group
+      label Password
+      input.form-control(type='password', placeholder='Password', name='password')
+    .form-group
+      button.btn.btn-default(type='submit') Submit
