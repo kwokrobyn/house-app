@@ -101,11 +101,7 @@ exports.postLogin = (req, res, next) => {
     req.logIn(user, (err) => {
       if (err) { return next(err); }
       req.flash('success', { msg: 'Log In Successful' });
-      if (req.user.house == null) {
-        res.redirect('/start');
-      } else {
-        res.redirect(req.session.returnTo || '/dashboard');
-      }
+      res.redirect('/dashboard');
     });
   })(req, res, next);
 };

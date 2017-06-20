@@ -1,0 +1,10 @@
+extends layout
+
+block content 
+  .container-fluid 
+    form(method='post')
+      .form-group
+        label Enter House Key
+        input.form-control(type='text', placeholder='House Key', name='key')
+      .form-group
+        button.btn.btn-default(type='submit') Submit

@@ -20,6 +20,7 @@ mongoose.connect('mongodb://localhost/house-app');
 // Routes
 const routes = require('./routes/index');
 const account = require('./routes/account');
+const start = require('./routes/start');
 
 // Init App
 const app = express();
@@ -91,6 +92,7 @@ app.use(function(req, res, next){
 // Set Routes
 app.use('/', routes);
 app.use('/account', account);
+app.use('/start', start);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

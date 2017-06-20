@@ -1,0 +1,52 @@
+extends layout 
+
+block content 
+  .container-fluid
+    h2 Welcome home, #{user}
+    input#myInput(type='text', onkeyup='filter()', placeholder='Find your house..')
+    table#myTable
+      for house in houses
+        tr.houseRow 
+          td #{house.name}
+          td #{house.address}
+          td.secretId #{house._id}
+      //- tr
+      //-   td The Pad
+      //-   td 18 Brick Road
+      //- tr
+      //-   td Humble Home
+      //-   td 18 Brick Place
+      //- tr
+      //-   td MTV Cribs
+      //-   td Blk 79 Ayer Rajah 
+      //- tr
+      //-   td Humble Office
+      //-   td Blk 71 Ayer Rajah 
+  script.
+    function filter() {
+      var input = document.getElementById("myInput");
+      var filter = input.value.toUpperCase();
+      var table = document.getElementById("myTable");
+      var tr = table.getElementsByTagName("tr");
+      
+      Array.prototype.forEach.call(tr, function(row){
+        console.log(row)
+        if (filter.length < 2) {
+          row.style.display = "none";
+        } else {
+          row.style.display = "";
+          var one = row.getElementsByTagName("td")[0];
+          console.log(one)
+          var two = row.getElementsByTagName("td")[1];
+          console.log(two)
+          if (one.innerHTML.toUpperCase().indexOf(filter) > -1 || two.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            console.log('yes')
+            row.style.display = "block";
+          } else {
+            console.log('no')
+            row.style.display = "none";
+          }
+        }
+      });
+    }
+  

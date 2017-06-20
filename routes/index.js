@@ -4,6 +4,9 @@ const router = express.Router();
 const User = require('../models/user');
 const userController = require('../controller/userController');
 
+const House = require('../models/house');
+const houseController = require('../controller/houseController');
+
 /* GET index page. */
 router.get('/', (req, res, next) => {
   res.render('index', {
@@ -13,17 +16,12 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/dashboard', userController.isAuthenticated, userController.hasHouse, (req, res, next) => {
-  res.render('dashboard', {
-    user: req.user.name,
+  House.find({}, (err, houses) => {
+    if (err) throw err;
+    res.render('dashboard', {
+      user: req.user.name,
+    })
   })
 })
-
-router.get('/start', userController.isAuthenticated, (req, res, next) => {
-  res.render('start', {
-    user: req.user.name
-  });
-})
-
-
 
 module.exports = router;

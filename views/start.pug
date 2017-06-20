@@ -4,7 +4,8 @@ block content
   .container-fluid
     h2 Hello #{user}
     h3 Join a house or start your own
-    button.btn.btn-outline-secondary(type='button') Secondary
-    button.btn.btn-outline-success(type='button') Success
-
-      
+    .row
+      .startButton.col-md-6
+        a.btn.btn-block.btn-success.btn-lg(href='/start/joinhouse') Join a House
+      .startButton.col-md-6
+        a.btn.btn-block.btn-success.btn-lg(href='/start/newhouse') Start Your Own 

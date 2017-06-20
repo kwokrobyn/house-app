@@ -1,0 +1,15 @@
+extends layout 
+
+block content 
+  h1 Hi There! 
+  h4 User Registration
+  .container-fluid 
+    form(method='post')
+      .form-group
+        label House Name 
+        input.form-control(type='text', placeholder='Name', name='name')
+      .form-group
+        label Address
+        input.form-control(type='text', placeholder='Address', name='address')
+      .form-group
+        button.btn.btn-default(type='submit') Submit
