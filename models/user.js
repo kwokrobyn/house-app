@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
     index: {unique: true}
   },
   name: String,
-  house: { type: mongoose.Schema.Types.ObjectId, ref: 'House', default: null }
+  house: { type: mongoose.Schema.Types.ObjectId, ref: 'House'}
 })
 
 const User = module.exports = mongoose.model('User', userSchema);

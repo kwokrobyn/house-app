@@ -69,7 +69,7 @@ exports.registerUser = (req, res, next) => {
       name: name,
       email: email,
       username: username,
-      password: password
+      password: password,
     });
 
     User.createUser(newUser, (err, user) => {
@@ -124,7 +124,8 @@ exports.isAuthenticated = (req, res, next) => {
 };
 
 exports.hasHouse = (req, res, next) => {
-  if (req.user.house == null) {
+  if (req.user.house != null) {
+    console.log('has a house!');
     return next();
   }
   res.redirect('/start');

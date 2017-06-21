@@ -16,6 +16,7 @@ const mongoose = require('mongoose');
 
 // Connect to Mongoose
 mongoose.connect('mongodb://localhost/house-app');
+mongoose.Promise = global.Promise;
 
 // Routes
 const routes = require('./routes/index');

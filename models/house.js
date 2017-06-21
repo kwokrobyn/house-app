@@ -7,7 +7,7 @@ const houseSchema = new mongoose.Schema({
   name: String,
   address: String,
   users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-  _id: {
+  key: {
     type: String,
     'default': shortid.generate
   },

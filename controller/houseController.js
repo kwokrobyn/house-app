@@ -1,5 +1,8 @@
 const House = require('../models/house');
 const passport = require('passport');
+const mongoose = require('mongoose');
+
+const User = require('../models/user');
 
 exports.createHouse = (req, res, next) => {
   var name = req.body.name;
@@ -17,15 +20,20 @@ exports.createHouse = (req, res, next) => {
 	} else {
     const newHouse = new House ({
       name: name,
-      address: address
+      address: address,
+      users: [req.user._id]
     });
-    newHouse.save();
-    // Add new user to house
-    newHouse.users.push(req.user._id);
-    // Add house to user
-    req.user.house = newHouse._id;
-    req.flash('success', { msg: 'New house created!' });
+    newHouse.save((err, house) => {
+      console.log('created house', house);
+      if (err) throw err;
+      User.findByIdAndUpdate(req.user.id,
+      { house: house.id }, (err, updatedUser) => {
+        if (err) throw err;
+        console.log('updatedUser', updatedUser);
+      });
+    });
 
+    req.flash('success', { msg: 'New house created!' });
     res.redirect('/dashboard');
   }
 }
