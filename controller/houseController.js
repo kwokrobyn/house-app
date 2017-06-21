@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 const User = require('../models/user');
 
+// CREATE
 exports.createHouse = (req, res, next) => {
   var name = req.body.name;
   var address = req.body.address;
@@ -38,22 +39,30 @@ exports.createHouse = (req, res, next) => {
   }
 }
 
+// UPDATE (add users)
 exports.joinHouse = (req, res, next) => {
+  // get user input key
   var key = req.body.key;
-  var house;
-  House.find({ _id: key}, (err, houses) => {
-    if (err) throw err;
-    if (houses.length == 1) {
-      house = houses[0];
-      console.log('house', house);
-      req.user.house = house._id;
-      house.users.push(req.user._id);
-      req.flash('success', { msg: 'House ' + house.name + ' joined!' })
-      res.redirect('/dashboard');
-    } else {
-      req.flash('error', { msg: 'No house found.' })
-      res.redirect('/start/joinhouse');
-    }
+  House.findOneAndUpdate({ key: key },
+    { $push: { users : req.user._id } },
+    (err, house) => {
+      if (err) {
+        req.flash('error', { msg: 'No house found.' })
+        res.redirect('/start/joinhouse');
+      } else {
 
+        User.findByIdAndUpdate(req.user.id,
+        {house: house.id},
+        (err, updatedUser) => {
+          if (err) throw err;
+          console.log('updatedUser', updatedUser);
+        })
+
+        console.log('the joined house', house);
+        req.flash('success', { msg: 'House ' + house.name + ' joined!' })
+        res.redirect('/dashboard');
+
+
+      }
   })
 }

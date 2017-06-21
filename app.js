@@ -16,6 +16,7 @@ const mongoose = require('mongoose');
 
 // Connect to Mongoose
 mongoose.connect('mongodb://localhost/house-app');
+// Prevents Deprecation Warning
 mongoose.Promise = global.Promise;
 
 // Routes
