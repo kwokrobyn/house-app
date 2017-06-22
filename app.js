@@ -1,5 +1,4 @@
-require('dotenv').config({ silent: true })
-//const logger = require('morgan');
+const logger = require('morgan');
 const lessMiddleware = require('less-middleware');
 const index = ('./routes/index');
 const Debug = require('debug');
@@ -12,11 +11,11 @@ const flash = require('express-flash');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const mongo = require('mongodb');
 const mongoose = require('mongoose');
-const MongoStore = require('connect-mongo')(session);
 
 // Connect to Mongoose
-mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect('mongodb://localhost/house-app');
 // Prevents Deprecation Warning
 mongoose.Promise = global.Promise;
 
@@ -34,10 +33,11 @@ const debug = Debug('house-app:app');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-
+// uncomment after placing your favicon in /public
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 // BodyParser Middleware
-//app.use(logger('dev'));
+app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
@@ -49,7 +49,7 @@ app.use(lessMiddleware(path.join(__dirname, 'public')));
 
 // Set Static Folder
 app.use(express.static(path.join(__dirname, 'public')));
-//
+
 // Express Session
 app.use(session({
   secret: 'secret',

@@ -1,13 +1,13 @@
 const express = require('express')
 const router = express.Router();
 
-const userModel = require('../models/userModel');
+const User = require('../models/user');
 const userController = require('../controller/userController');
 
-const houseModel = require('../models/houseModel');
+const House = require('../models/house');
 const houseController = require('../controller/houseController');
 
-const taskModel = require('../models/taskModel');
+const Task = require('../models/task');
 const taskController = require('../controller/taskController');
 
 // Render Dash

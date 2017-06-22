@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-const userModel = require('../models/userModel');
+const User = require('../models/user');
 const userController = require('../controller/userController');
 
 // Register (GET register)

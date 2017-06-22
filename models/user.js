@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const houseModel = require('./houseModel');
+const House = require('./house');
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -13,10 +13,10 @@ const userSchema = new mongoose.Schema({
     index: {unique: true}
   },
   name: String,
-  house: { type: mongoose.Schema.Types.ObjectId, ref: 'houseModel'}
+  house: { type: mongoose.Schema.Types.ObjectId, ref: 'House'}
 })
 
-const userModel = module.exports = mongoose.model('userModel', userSchema);
+const User = module.exports = mongoose.model('User', userSchema);
 
 module.exports.createUser = (newUser, callback) => {
   bcrypt.genSalt(10, (err, salt) => {

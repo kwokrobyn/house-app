@@ -1,18 +1,18 @@
 const mongoose = require('mongoose');
 const shortid = require('shortid');
 
-const userModel = require('./userModel');
+const User = require('./user');
 
 const houseSchema = new mongoose.Schema({
   name: String,
   address: String,
-  users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'userModel' }],
+  users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   key: {
     type: String,
     'default': shortid.generate
   },
 });
 
-const houseModel = mongoose.model('houseModel', houseSchema);
+const House = mongoose.model('House', houseSchema);
 
-module.exports = houseModel;
+module.exports = House;

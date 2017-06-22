@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const houseModel = require('../models/houseModel');
+const House = require('../models/house');
 const passport = require('passport');
-const userModel = require('../models/userModel');
-const taskModel = require('../models/taskModel');
+const User = require('../models/user');
+const Task = require('../models/task');
 
 // CREATE task
 exports.createTask = (req, res) => {
@@ -12,7 +12,7 @@ exports.createTask = (req, res) => {
   const dueDate = req.body.dueDate;
 
   // find the current house
-  houseModel.findById(req.user.house)
+  House.findById(req.user.house)
   .populate('users')
   .exec((err, house) => {
     if (err) throw err;
@@ -22,7 +22,7 @@ exports.createTask = (req, res) => {
         const assignedID = user._id;
         console.log('matching user found', assignedID);
 
-        const newTask = new taskModel ({
+        const newTask = new Task ({
           name: name,
           creatorID: req.user._id,
           assignedID: assignedID,
@@ -50,7 +50,7 @@ exports.editTask = (req, res) => {
   console.log('task id', taskID);
   console.log('new name', name);
 
-  houseModel.findById(req.user.house)
+  House.findById(req.user.house)
   .populate('users')
   .exec((err, house) => {
     if (err) throw err;
@@ -63,7 +63,7 @@ exports.editTask = (req, res) => {
         console.log('matching user found', assignedID);
 
         // find task
-        taskModel.findByIdAndUpdate(taskID, {
+        Task.findByIdAndUpdate(taskID, {
           name: name,
           assignedID: assignedID,
           dueDate: dueDate
@@ -79,7 +79,7 @@ exports.editTask = (req, res) => {
 
 // DELETE task
 exports.deleteTask = (req, res) => {
-  taskModel.findByIdAndRemove(req.body.taskID, (err, task) => {
+  Task.findByIdAndRemove(req.body.taskID, (err, task) => {
     res.json(task);
   })
 }

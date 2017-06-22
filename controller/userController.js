@@ -1,4 +1,4 @@
-const userModel = require('../models/userModel');
+const User = require('../models/user');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
@@ -15,13 +15,13 @@ passport.deserializeUser((id, done) => {
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
-   userModel.getUserByUsername(username, function(err, user){
+   User.getUserByUsername(username, function(err, user){
    	if(err) throw err;
    	if(!user){
    		return done(null, false, {message: 'Unknown User'});
    	}
 
-   	userModel.comparePassword(password, user.password, function(err, isMatch){
+   	User.comparePassword(password, user.password, function(err, isMatch){
    		if(err) throw err;
    		if(isMatch){
    			return done(null, user);
@@ -72,7 +72,7 @@ exports.registerUser = (req, res, next) => {
       password: password,
     });
 
-    userModel.createUser(newUser, (err, user) => {
+    User.createUser(newUser, (err, user) => {
       if (err) throw err;
       console.log(user);
       req.flash('success', { msg: 'Success! You are registered and can now log in.' });

@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const houseModel = require('../models/houseModel');
+const House = require('../models/house');
 const passport = require('passport');
-const userModel = require('../models/userModel');
-const taskModel = require('../models/taskModel');
+const User = require('../models/user');
+const Task = require('../models/task');
 
 // CREATE
 exports.createHouse = (req, res, next) => {
@@ -19,7 +19,7 @@ exports.createHouse = (req, res, next) => {
     req.flash('errors', errors);
     return res.redirect('/start/newhouse');
 	} else {
-    const newHouse = new houseModel ({
+    const newHouse = new House ({
       name: name,
       address: address,
       users: [req.user._id]
@@ -27,7 +27,7 @@ exports.createHouse = (req, res, next) => {
     newHouse.save((err, house) => {
       console.log('created house', house);
       if (err) throw err;
-      userModel.findByIdAndUpdate(req.user.id,
+      User.findByIdAndUpdate(req.user.id,
       { house: house.id }, (err, updatedUser) => {
         if (err) throw err;
         console.log('updatedUser', updatedUser);
@@ -43,7 +43,7 @@ exports.createHouse = (req, res, next) => {
 exports.joinHouse = (req, res, next) => {
   // get user input key
   var key = req.body.key;
-  houseModel.findOneAndUpdate({ key: key },
+  House.findOneAndUpdate({ key: key },
     { $push: { users : req.user._id } },
     (err, house) => {
       if (err) {
@@ -51,7 +51,7 @@ exports.joinHouse = (req, res, next) => {
         res.redirect('/start/joinhouse');
       } else {
 
-        userModel.findByIdAndUpdate(req.user.id,
+        User.findByIdAndUpdate(req.user.id,
         {house: house.id},
         (err, updatedUser) => {
           if (err) throw err;
@@ -69,20 +69,20 @@ exports.joinHouse = (req, res, next) => {
 
 // GET list users
 exports.renderDash = (req, res, next) => {
-  houseModel.findOne({_id: (req.user.house)})
+  House.findOne({_id: (req.user.house)})
   .populate('users')
   .exec((err, houseInfo) => {
     if (err) throw err;
     console.log(houseInfo);
 
     // find all tasks belonging to current user
-    taskModel.find({ assignedID: req.user._id })
+    Task.find({ assignedID: req.user._id })
     .populate('assignedID')
     .populate('creatorID')
     .exec((err, activeTasks) => {
       // find all tasks assigned by current user
       console.log('you made it here!');
-      taskModel.find({ creatorID: req.user._id })
+      Task.find({ creatorID: req.user._id })
       .populate('assignedID')
       .populate('creatorID')
       .exec((err, assignedTasks) => {
