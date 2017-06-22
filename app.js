@@ -13,6 +13,7 @@ const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo')(session);
 
 // Connect to Mongoose
 mongoose.connect(process.env.MONGODB_URI);
