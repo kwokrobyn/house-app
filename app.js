@@ -1,3 +1,4 @@
+require('dotenv').config({ silent: true })
 const logger = require('morgan');
 const lessMiddleware = require('less-middleware');
 const index = ('./routes/index');
@@ -15,7 +16,7 @@ const mongo = require('mongodb');
 const mongoose = require('mongoose');
 
 // Connect to Mongoose
-mongoose.connect('mongodb://localhost/house-app');
+mongoose.connect(process.env.MONGODB_URI);
 // Prevents Deprecation Warning
 mongoose.Promise = global.Promise;
 
