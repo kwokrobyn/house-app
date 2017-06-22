@@ -137,15 +137,15 @@ $(document).ready(function() {
 
   }
 
-  completeTaskAjax = () => {
-    const currentTaskID = $(e.target).parent().parent().find('.hiddenID').html();
-
-    $.ajax({
-      method: 'PUT',
-      url: '/dashboard/complete',
-      data: { taskID: currentTask }
-    })
-  }
+  // completeTaskAjax = () => {
+  //   const currentTaskID = $(e.target).parent().parent().find('.hiddenID').html();
+  //
+  //   $.ajax({
+  //     method: 'PUT',
+  //     url: '/dashboard/complete',
+  //     data: { taskID: currentTask }
+  //   })
+  // }
 
 
 
