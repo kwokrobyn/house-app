@@ -76,3 +76,10 @@ exports.editTask = (req, res) => {
     });
   });
 }
+
+// DELETE task
+exports.deleteTask = (req, res) => {
+  Task.findByIdAndRemove(req.body.taskID, (err, task) => {
+    res.json(task);
+  })
+}

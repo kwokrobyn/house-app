@@ -21,7 +21,10 @@ houseController.renderDash
 router.post('/create', taskController.createTask);
 
 // Update Task
-router.put('/edit', taskController.editTask); 
+router.put('/edit', taskController.editTask);
+
+// Delete task 
+router.delete('/delete', taskController.deleteTask);
 
 
 module.exports = router;

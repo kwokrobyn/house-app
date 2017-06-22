@@ -29,7 +29,6 @@ $(document).ready(function() {
     $('#editForm #editName').val(taskName);
     $('#editForm #taskID').val(taskID);
     $('#editForm').modal('show');
-
   })
 
   // submit assigned task form
@@ -37,6 +36,10 @@ $(document).ready(function() {
     editTaskAjax();
   })
 
+  // delete task
+  $(document).on('click', '#editForm .delete', (e) => {
+    deleteTaskAjax();
+  })
 
 
   /*
@@ -100,6 +103,28 @@ $(document).ready(function() {
 
       });
     })
+  }
+
+  deleteTaskAjax = () => {
+    const currentTask = $('#editForm #taskID').val();
+
+    $.ajax({
+      method: 'DELETE',
+      url: '/dashboard/delete',
+      data: { taskID: currentTask }
+    }).done(() => {
+      $('#editForm').modal('hide');
+
+      var taskArray = document.getElementsByClassName('assignedTask');
+      Array.prototype.forEach.call(taskArray, task => {
+        if ($(task).find('.hiddenID.id').html() == currentTask) {
+          $(task).remove();
+        }
+
+      });
+
+    })
+
   }
 
 
