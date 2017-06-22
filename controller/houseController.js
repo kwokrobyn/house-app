@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const House = require('../models/house');
+const House = require('../models/House');
 const passport = require('passport');
-const User = require('../models/user');
-const Task = require('../models/task');
+const User = require('../models/User');
+const Task = require('../models/Task');
 
 // CREATE
 exports.createHouse = (req, res, next) => {

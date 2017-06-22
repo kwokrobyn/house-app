@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const User = require('./user');
-const House = require('./house');
+const User = require('./User');
+const House = require('./House');
 
 const taskSchema = new mongoose.Schema({
   name: String,

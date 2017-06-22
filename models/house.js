@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const shortid = require('shortid');
 
-const User = require('./user');
+const User = require('./User');
 
 const houseSchema = new mongoose.Schema({
   name: String,
