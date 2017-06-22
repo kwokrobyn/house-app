@@ -1,5 +1,5 @@
 require('dotenv').config({ silent: true })
-const logger = require('morgan');
+//const logger = require('morgan');
 const lessMiddleware = require('less-middleware');
 const index = ('./routes/index');
 const Debug = require('debug');
@@ -37,7 +37,7 @@ app.set('view engine', 'pug');
 
 
 // BodyParser Middleware
-app.use(logger('dev'));
+//app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
