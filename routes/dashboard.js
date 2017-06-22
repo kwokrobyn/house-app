@@ -20,7 +20,8 @@ houseController.renderDash
 // Create New Task
 router.post('/create', taskController.createTask);
 
-
+// Update Task
+router.put('/edit', taskController.editTask); 
 
 
 module.exports = router;
