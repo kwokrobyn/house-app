@@ -32,8 +32,29 @@ footer {
   font-size: 15px;
 }
 
+
 .assignedTask:hover, .activeTask:hover {
   background-color: #EEEEEE;
+}
+
+.activeTask:hover .complete {
+  display: block;
+}
+
+.activeTask .task, .assignedTask .task {
+  font-weight: bold;
+}
+
+.overdue {
+  color: red;
+}
+
+.activeTask div {
+  padding-top: 2px;
+}
+
+.activeTask .complete {
+  display: none;
 }
 
 #houseTitle {

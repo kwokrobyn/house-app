@@ -15,11 +15,19 @@ block content
           div.roommate #{user.name}
       .col-md-6.topRow#activeTasks
         div.title Active Tasks 
+      
         for task in activeTasks 
-          div.activeTask 
-            div.task #{task.name}
-            div.hiddenID.id #{task._id}
-        div.extra
+          -if (task.active == true)
+            .row.activeTask 
+              div.hiddenID.id #{task._id}
+              .col-md-2.overdue 
+                -if (task.dueDate - (new Date()) < 0) 
+                  div Overdue
+              .col-md-2.assigner Assigned by #{task.creatorID.name}
+              .col-md-4.task #{task.name}
+              .col-md-2.dueDate #{task.dueDate.toString().substring(0,10)}
+              .col-md-2.complete 
+                button.btn.btn-primary.completeBtn(type='button') Complete
       .col-md-4.topRow#assignedTasks
         div.title Assigned Tasks 
         for task in assignedTasks 
@@ -77,30 +85,3 @@ block content
               button.btn.btn-error.delete(type='button') Delete
               button.btn.btn-primary.submit(type='button') Update 
               
-              
-    //- for finishing active tasks 
-    #completeForm.modal.fade(tabindex='-1', role='dialog')
-      .modal-dialog(role='document')
-        .modal-content
-          .modal-header
-            button.close(type='button', data-dismiss='modal', aria-label='Close')
-              span(aria-hidden='true') ×
-            h4.modal-title Create A New Task
-          .modal-body
-            .form-group
-              label(for='name') Task Name 
-              input#name.form-control(type='text', placeholder='Clean up your shit')
-            .form-group
-              label(for='assigned') Assign
-              select#assigned.form-control(placeholder='Choose a roommate')
-                for user in houseInfo.users
-                  option #{user.name}
-            .form-group
-              label(for='dueDate') Due Date
-              input#dueDate.form-control(type='Date', placeholder='When do you need it done by?')
-
-            .modal-footer
-              button.btn.btn-primary.submit(type='button') Create
-
-
-        

@@ -41,6 +41,10 @@ $(document).ready(function() {
     deleteTaskAjax();
   })
 
+  // complete task
+  $(document).on('click', '.complete', (e) => {
+    completeTaskAjax();
+  })
 
   /*
    *  FUNCTIONS
@@ -115,16 +119,32 @@ $(document).ready(function() {
     }).done(() => {
       $('#editForm').modal('hide');
 
-      var taskArray = document.getElementsByClassName('assignedTask');
-      Array.prototype.forEach.call(taskArray, task => {
+      var assignedArr = document.getElementsByClassName('assignedTask');
+      Array.prototype.forEach.call(assignedArr, task => {
         if ($(task).find('.hiddenID.id').html() == currentTask) {
           $(task).remove();
         }
+      });
 
+      var activeArr = document.getElementsByClassName('activeTask');
+      Array.prototype.forEach.call(activeArr, task => {
+        if ($(task).find('.hiddenID.id').html() == currentTask) {
+          $(task).remove();
+        }
       });
 
     })
 
+  }
+
+  completeTaskAjax = () => {
+    const currentTaskID = $(e.target).parent().parent().find('.hiddenID').html();
+
+    $.ajax({
+      method: 'PUT',
+      url: '/dashboard/complete',
+      data: { taskID: currentTask }
+    })
   }
 
 

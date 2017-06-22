@@ -76,17 +76,23 @@ exports.renderDash = (req, res, next) => {
     console.log(houseInfo);
 
     // find all tasks belonging to current user
-    Task.find({ assignedID: req.user._id }, (err, activeTasks) => {
+    Task.find({ assignedID: req.user._id })
+    .populate('assignedID')
+    .populate('creatorID')
+    .exec((err, activeTasks) => {
       // find all tasks assigned by current user
       console.log('you made it here!');
-      Task.find({ creatorID: req.user._id }, (err, assignedTasks) => {
+      Task.find({ creatorID: req.user._id })
+      .populate('assignedID')
+      .populate('creatorID')
+      .exec((err, assignedTasks) => {
         console.log('assignedtasks', assignedTasks);
         console.log('activetasks', activeTasks);
         res.render('dashboard', {
           houseInfo: houseInfo,
           currentUser: req.user,
           assignedTasks: assignedTasks,
-          activeTasks: activeTasks 
+          activeTasks: activeTasks
         })
       })
     })
