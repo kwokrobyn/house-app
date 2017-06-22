@@ -1,8 +1,8 @@
+const mongoose = require('mongoose');
 const House = require('../models/house');
 const passport = require('passport');
-const mongoose = require('mongoose');
-
 const User = require('../models/user');
+const Task = require('../models/task');
 
 // CREATE
 exports.createHouse = (req, res, next) => {
@@ -64,5 +64,31 @@ exports.joinHouse = (req, res, next) => {
 
 
       }
+  })
+}
+
+// GET list users
+exports.renderDash = (req, res, next) => {
+  House.findOne({_id: (req.user.house)})
+  .populate('users')
+  .exec((err, houseInfo) => {
+    if (err) throw err;
+    console.log(houseInfo);
+
+    // find all tasks belonging to current user
+    Task.find({ assignedID: req.user._id }, (err, activeTasks) => {
+      // find all tasks assigned by current user
+      console.log('you made it here!');
+      Task.find({ creatorID: req.user._id }, (err, assignedTasks) => {
+        console.log('assignedtasks', assignedTasks);
+        console.log('activetasks', activeTasks);
+        res.render('dashboard', {
+          houseInfo: houseInfo,
+          currentUser: req.user,
+          assignedTasks: assignedTasks,
+          activeTasks: activeTasks 
+        })
+      })
+    })
   })
 }

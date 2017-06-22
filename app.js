@@ -23,6 +23,7 @@ mongoose.Promise = global.Promise;
 const routes = require('./routes/index');
 const account = require('./routes/account');
 const start = require('./routes/start');
+const dashboard = require('./routes/dashboard');
 
 // Init App
 const app = express();
@@ -95,6 +96,7 @@ app.use(function(req, res, next){
 app.use('/', routes);
 app.use('/account', account);
 app.use('/start', start);
+app.use('/dashboard', dashboard);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

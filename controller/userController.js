@@ -128,5 +128,6 @@ exports.hasHouse = (req, res, next) => {
     console.log('has a house!');
     return next();
   }
+  console.log('no house');
   res.redirect('/start');
 }

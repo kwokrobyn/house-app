@@ -2,5 +2,98 @@ extends layout
 
 block content 
   .container-fluid
-    h2 Welcome home, #{user}
+    .col-md-12#houseTitle #{houseInfo.name}
+    .col-md-12#welcomeHome Welcome home, #{currentUser.name}
+    .col-md-12#createTask
+      button.btn.btn-primary#createButton(type='submit') Create Task
+    .row#mainDash
+      .col-md-2.topRow#roommateList
+        div.title Roommates 
+        for user in houseInfo.users 
+          div.roommate #{user.name}
+      .col-md-6.topRow#activeTasks
+        div.title Active Tasks 
+        for task in activeTasks 
+          div.activeTask.task #{task.name}
+            div.hiddenID #{task._id}
+      .col-md-4.topRow#assignedTasks
+        div.title Assigned Tasks 
+        for task in assignedTasks 
+          div.assignedTask.task #{task.name}
+            div.hiddenID #{task._id}
     
+    
+    #createForm.modal.fade(tabindex='-1', role='dialog')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+            h4.modal-title Create A New Task
+          .modal-body
+            .form-group
+              label(for='name') Task Name 
+              input#name.form-control(type='text', placeholder='Clean up your shit')
+            .form-group
+              label(for='assigned') Assign
+              select#assigned.form-control(placeholder='Choose a roommate')
+                for user in houseInfo.users
+                  option #{user.name}
+            .form-group
+              label(for='dueDate') Due Date
+              input#dueDate.form-control(type='Date', placeholder='When do you need it done by?')
+
+            .modal-footer
+              button.btn.btn-primary.submit(type='button') Create
+    
+    //- for editting assigned tasks   
+    #editForm.modal.fade(tabindex='-1', role='dialog')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+            h4.modal-title Create A New Task
+          .modal-body
+            .form-group
+              label(for='name') Task Name 
+              input#name.form-control(type='text', placeholder='Clean up your shit')
+            .form-group
+              label(for='assigned') Assign
+              select#assigned.form-control(placeholder='Choose a roommate')
+                for user in houseInfo.users
+                  option #{user.name}
+            .form-group
+              label(for='dueDate') Due Date
+              input#dueDate.form-control(type='Date', placeholder='When do you need it done by?')
+
+            .modal-footer
+              button.btn.btn-primary.submit(type='button') Create
+              
+              
+    //- for finishing active tasks 
+    #completeForm.modal.fade(tabindex='-1', role='dialog')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+            h4.modal-title Create A New Task
+          .modal-body
+            .form-group
+              label(for='name') Task Name 
+              input#name.form-control(type='text', placeholder='Clean up your shit')
+            .form-group
+              label(for='assigned') Assign
+              select#assigned.form-control(placeholder='Choose a roommate')
+                for user in houseInfo.users
+                  option #{user.name}
+            .form-group
+              label(for='dueDate') Due Date
+              input#dueDate.form-control(type='Date', placeholder='When do you need it done by?')
+
+            .modal-footer
+              button.btn.btn-primary.submit(type='button') Create
+
+
+        

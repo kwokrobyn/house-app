@@ -7,12 +7,20 @@ const userController = require('../controller/userController');
 const House = require('../models/house');
 const houseController = require('../controller/houseController');
 
-/* GET index page. */
-router.get('/', (req, res, next) => {
-  res.render('index', {
-    title: 'Express'
-  });
-  console.log(req.user.id)
-});
+const Task = require('../models/task');
+const taskController = require('../controller/taskController');
+
+// Render Dash
+router.get('/',
+userController.isAuthenticated,
+userController.hasHouse,
+houseController.renderDash
+)
+
+// Create New Task
+router.post('/create', taskController.createTask);
+
+
+
 
 module.exports = router;
