@@ -57,7 +57,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: 'secret',
   saveUninitialized: true,
-  resave: true
+  resave: true,
   store: new MongoStore({
     url: process.env.MONGODB_URI,
     autoReconnect: true,
