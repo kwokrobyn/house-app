@@ -26,4 +26,7 @@ router.put('/edit', taskController.editTask);
 // Delete task
 router.delete('/delete', taskController.deleteTask);
 
+// Complete Task
+router.put('/complete', taskController.completeTask);
+
 module.exports = router;

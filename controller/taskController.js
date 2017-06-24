@@ -79,7 +79,18 @@ exports.editTask = (req, res) => {
 
 // DELETE task
 exports.deleteTask = (req, res) => {
+  console.log('hello');
   Task.findByIdAndRemove(req.body.taskID, (err, task) => {
+    res.json(task);
+  })
+}
+
+// COMPLETE task
+exports.completeTask = (req, res) => {
+  console.log('made it to server');
+  Task.findByIdAndUpdate(req.body.taskID, { $set: {active:false}}, (err, task) => {
+    if (err) throw err;
+    console.log('completed task');
     res.json(task);
   })
 }

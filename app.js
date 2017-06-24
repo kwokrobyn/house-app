@@ -1,3 +1,4 @@
+require('dotenv').config({silent: true});
 const logger = require('morgan');
 const lessMiddleware = require('less-middleware');
 const index = ('./routes/index');
@@ -11,11 +12,13 @@ const flash = require('express-flash');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const mongo = require('mongodb');
 const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo')(session);
+
+dotenv.load({ path: '.env' });
 
 // Connect to Mongoose
-mongoose.connect('mongodb://localhost/house-app');
+mongoose.connect(process.env.MONGODB_URI);
 // Prevents Deprecation Warning
 mongoose.Promise = global.Promise;
 
@@ -55,6 +58,11 @@ app.use(session({
   secret: 'secret',
   saveUninitialized: true,
   resave: true
+  store: new MongoStore({
+    url: process.env.MONGODB_URI,
+    autoReconnect: true,
+    clear_interval: 3600
+  })
 }));
 
 // Flash

@@ -14,7 +14,7 @@ block content
         for user in houseInfo.users 
           div.roommate #{user.name}
       .col-md-6.topRow#activeTasks
-        div.title Active Tasks 
+        div.title Your Tasks 
       
         for task in activeTasks 
           -if (task.active == true)
@@ -31,8 +31,13 @@ block content
       .col-md-4.topRow#assignedTasks
         div.title Assigned Tasks 
         for task in assignedTasks 
-          div.assignedTask
-            div.task #{task.name}
+          .row.assignedTask
+            .col-md-6.task #{task.name}
+            .col-md-3.assignee #{task.assignedID.name}
+            -if (task.active == true)
+              .col-md-3.complete Incomplete 
+            -else if (task.active == false) 
+              .col-md-3.complete Complete
             div.hiddenID.id #{task._id}
     
     

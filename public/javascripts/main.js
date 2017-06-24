@@ -38,12 +38,14 @@ $(document).ready(function() {
 
   // delete task
   $(document).on('click', '#editForm .delete', (e) => {
+
     deleteTaskAjax();
   })
 
   // complete task
   $(document).on('click', '.complete', (e) => {
-    completeTaskAjax();
+    const currentTaskID = $(e.target).parent().parent().find('.hiddenID').html();
+    completeTaskAjax(currentTaskID);
   })
 
   /*
@@ -111,6 +113,7 @@ $(document).ready(function() {
 
   deleteTaskAjax = () => {
     const currentTask = $('#editForm #taskID').val();
+    console.log(currentTask);
 
     $.ajax({
       method: 'DELETE',
@@ -137,15 +140,32 @@ $(document).ready(function() {
 
   }
 
-  // completeTaskAjax = () => {
-  //   const currentTaskID = $(e.target).parent().parent().find('.hiddenID').html();
-  //
-  //   $.ajax({
-  //     method: 'PUT',
-  //     url: '/dashboard/complete',
-  //     data: { taskID: currentTask }
-  //   })
-  // }
+  completeTaskAjax = (taskID) => {
+
+
+    $.ajax({
+      method: 'PUT',
+      url: '/dashboard/complete',
+      data: { taskID: taskID }
+    }).done(() => {
+      console.log('made it back to front end');
+    })
+
+    var activeArr = document.getElementsByClassName('activeTask');
+    Array.prototype.forEach.call(activeArr, task => {
+      if ($(task).find('.hiddenID.id').html() == taskID) {
+        $(task).remove();
+      }
+    });
+
+    var assignedArr = document.getElementsByClassName('assignedTask');
+    Array.prototype.forEach.call(assignedArr, task => {
+      if ($(task).find('.hiddenID.id').html() == taskID) {
+        $(task).find('.complete').html('Complete');
+      }
+    });
+
+  }
 
 
 
