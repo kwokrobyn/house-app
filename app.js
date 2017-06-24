@@ -1,4 +1,4 @@
-require('dotenv').config({silent: true});
+
 const logger = require('morgan');
 const lessMiddleware = require('less-middleware');
 const index = ('./routes/index');
