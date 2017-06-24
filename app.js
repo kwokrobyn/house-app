@@ -14,6 +14,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
+const dotenv = require('dotenv');
 
 dotenv.load({ path: '.env' });
 
