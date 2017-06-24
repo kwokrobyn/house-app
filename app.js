@@ -1,4 +1,4 @@
-
+const dotev = require('dotenv').config({silent: true});
 const logger = require('morgan');
 const lessMiddleware = require('less-middleware');
 const index = ('./routes/index');
@@ -14,7 +14,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
-const dotenv = require('dotenv');
+
 
 dotenv.load({ path: '.env' });
 
