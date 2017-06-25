@@ -12,7 +12,6 @@ router.get('/', (req, res, next) => {
   res.render('index', {
     title: 'Express'
   });
-  console.log(req.user.id)
 });
 
 module.exports = router;
