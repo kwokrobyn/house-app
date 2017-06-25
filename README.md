@@ -3,7 +3,7 @@ A Node.JS web application that manages and keeps track of household tasks betwee
 ## Getting Started
 Clone [this repo](https://github.com/kwokrobyn/house-app) and run npm install.
 ## Live version 
-View the live version [here](https://house-app-robyn.herokuapp.com/dashboard)
+View the live version [here](https://house-app-robyn.herokuapp.com/)
 ## Features
 1. Start a new house for you and your roommates to keep track of tasks 
 2. Join your roommate's house by entering a unique house key 
