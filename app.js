@@ -104,29 +104,15 @@ app.use('/account', account);
 app.use('/start', start);
 app.use('/dashboard', dashboard);
 
-// catch 404 and forward to error handler
-app.use((req, res, next) => {
-  const err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-// error handler
-/* eslint no-unused-vars: 0 */
-app.use((err, req, res, next) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-// Handle uncaughtException
-process.on('uncaughtException', (err) => {
-  debug('Caught exception: %j', err);
-  process.exit(1);
-});
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+  app.use(function (err, req, res, next) {
+    res.status(err.status || 500)
+    console.log(err.message)
+    res.render('error')
+  })
+}
 
 // Set Port
 
