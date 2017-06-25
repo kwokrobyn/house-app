@@ -2,6 +2,7 @@ $(document).ready(function() {
 
   const userID = $('#currentID').html();
   const houseID = $('#houseID').html();
+  let showKey = false;
 
   /*
    *  EVENT LISTENERS
@@ -46,6 +47,19 @@ $(document).ready(function() {
   $(document).on('click', '.complete', (e) => {
     const currentTaskID = $(e.target).parent().parent().find('.hiddenID').html();
     completeTaskAjax(currentTaskID);
+  })
+
+  // show house key
+  $(document).on('click', '#showButton', (e) => {
+    if (!showKey) {
+      $('#showButton').html($('#houseKey').html());
+      showKey = true;
+    }
+    else {
+      $('#showButton').html('Show Key');
+      showKey = false;
+    }
+
   })
 
   /*

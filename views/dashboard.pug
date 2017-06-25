@@ -2,12 +2,16 @@ extends layout
 
 block content 
   .container-fluid
-    .col-md-12#houseTitle #{houseInfo.name}
-      div.hiddenID#houseID #{houseInfo._id}
-    .col-md-12#welcomeHome Welcome home, #{currentUser.name}
-      div.hiddenID#currentID #{currentUser._id}
-    .col-md-12#createTask
-      button.btn.btn-primary#createButton(type='submit') Create Task
+    .row 
+      .col-md-12
+        #houseTitle #{houseInfo.name}
+        div.hiddenID#houseID #{houseInfo._id}
+        #welcomeHome Welcome home, #{currentUser.name}
+        div.hiddenID#currentID #{currentUser._id}
+        div.hiddenID#houseKey #{houseInfo.key}
+      .col-md-12#dashButtons
+        button.btn.btn-primary#createButton(type='submit') Create Task 
+        button.btn.btn-secondary#showButton(type='submit') Show Key 
     .row#mainDash
       .col-md-2.topRow#roommateList
         div.title Roommates 
