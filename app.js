@@ -12,8 +12,8 @@ const flash = require('express-flash');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
+const mongoose = require('mongoose');
 
 // Connect to Mongoose
 mongoose.connect(process.env.MONGODB_URI);
@@ -130,8 +130,9 @@ process.on('uncaughtException', (err) => {
 });
 
 // Set Port
-app.set('port', (process.env.PORT || 3000));
 
-app.listen(app.get('port'), () => {
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
 	console.log('Server started on port '+app.get('port'));
 });
